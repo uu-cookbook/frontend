@@ -26,13 +26,34 @@ class Login extends Component {
                         ) {
                             errors.email = "Invalid email address";
                         }
+                        if (!values.password) {
+                            errors.password = "Required";
+                        }
                         return errors;
                     }}
                     onSubmit={(values, { setSubmitting }) => {
                         setTimeout(() => {
-                            alert(JSON.stringify(values, null, 2));
                             setSubmitting(false);
                         }, 400);
+                        fetch("https://api.uu.vojtechpetrasek.com/v3/login/", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(values),
+                        })
+                            .then((response) => response.json())
+                            .then((data) => {
+                                console.log(data);
+                                if (data.success === true) {
+                                    console.log("Success:", data);
+                                    alert("Login successful");
+                                } else if (data.message === "User not found") {
+                                    alert("User not found");
+                                } else if (data.message === "Wrong password") {
+                                    alert("Wrong password");
+                                }
+                            });
                     }}
                 >
                     {({
