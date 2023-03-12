@@ -213,6 +213,12 @@ class Register extends Component {
                                 >
                                     Submit
                                 </button>
+                                <div class="text-center">
+                                    <p>
+                                        Already registered?{" "}
+                                        <a href="login">Login</a>
+                                    </p>
+                                </div>
                             </form>
                         )}
                     </Formik>
