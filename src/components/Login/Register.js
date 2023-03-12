@@ -2,6 +2,14 @@ import React, { Component } from "react";
 import { Formik } from "formik";
 
 class Register extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            registered: false,
+            nicknameTaken: false,
+            emailTaken: false,
+        };
+    }
     render() {
         return (
             <>
@@ -43,7 +51,7 @@ class Register extends Component {
                                 errors.password = "Required";
                             }
                             if (!values.password_check) {
-                                errors.nickname = "Required";
+                                errors.password_check = "Required";
                             } else if (
                                 values.password !== values.password_check
                             ) {
@@ -54,9 +62,37 @@ class Register extends Component {
                         }}
                         onSubmit={(values, { setSubmitting }) => {
                             setTimeout(() => {
-                                alert(JSON.stringify(values, null, 2));
                                 setSubmitting(false);
-                            }, 400);
+                            }, 1000);
+                            fetch(
+                                "https://api.uu.vojtechpetrasek.com/v3/register/",
+                                {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                    },
+                                    body: JSON.stringify(values),
+                                }
+                            )
+                                .then((response) => response.json())
+                                .then((data) => {
+                                    if ("status" in data) {
+                                        this.setState({ registered: true });
+                                        alert("Registered successfully!");
+                                        setInterval(() => {
+                                            window.location.href = "/login";
+                                        }, 500);
+                                    } else {
+                                        if (data.nickname) {
+                                            this.setState({
+                                                nicknameTaken: true,
+                                            });
+                                        }
+                                        if (data.email) {
+                                            this.setState({ emailTaken: true });
+                                        }
+                                    }
+                                });
                         }}
                     >
                         {({
@@ -89,7 +125,7 @@ class Register extends Component {
                                         name="lastname"
                                         type="text"
                                         class="form-control"
-                                        id="name"
+                                        id="lastname"
                                         placeholder="Enter your lastname"
                                         onChange={handleChange}
                                         onBlur={handleBlur}
@@ -99,6 +135,7 @@ class Register extends Component {
                                 {errors.lastname &&
                                     touched.lastname &&
                                     errors.lastname}
+
                                 <div class="form-group">
                                     <label for="nickname">Nickname</label>
                                     <input
@@ -115,6 +152,9 @@ class Register extends Component {
                                 {errors.nickname &&
                                     touched.nickname &&
                                     errors.nickname}
+                                {this.state.nicknameTaken &&
+                                    "Nickname is already taken"}
+
                                 <div class="form-group">
                                     <label for="email">Email address</label>
                                     <input
@@ -129,6 +169,10 @@ class Register extends Component {
                                     ></input>
                                 </div>
                                 {errors.email && touched.email && errors.email}
+
+                                {this.state.emailTaken &&
+                                    "Email is already taken"}
+
                                 <div class="form-group">
                                     <label for="password">Password</label>
                                     <input
@@ -142,6 +186,9 @@ class Register extends Component {
                                         value={values.password}
                                     ></input>
                                 </div>
+                                {errors.password &&
+                                    touched.password &&
+                                    errors.password}
                                 <div class="form-group">
                                     <label for="password_check">Password</label>
                                     <input
@@ -155,9 +202,9 @@ class Register extends Component {
                                         value={values.password_check}
                                     ></input>
                                 </div>
-                                {errors.password &&
-                                    touched.password &&
-                                    errors.password}
+                                {errors.password_check &&
+                                    touched.password_check &&
+                                    errors.password_check}
                                 <br />
                                 <button
                                     type="submit"
