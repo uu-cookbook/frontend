@@ -46,8 +46,11 @@ class Login extends Component {
                             .then((data) => {
                                 console.log(data);
                                 if (data.success === true) {
+                                    localStorage.setItem("token", data.token);
                                     console.log("Success:", data);
-                                    alert("Login successful");
+                                    setInterval(() => {
+                                        window.location.href = "/";
+                                    }, 500);
                                 } else if (data.message === "User not found") {
                                     alert("User not found");
                                 } else if (data.message === "Wrong password") {
