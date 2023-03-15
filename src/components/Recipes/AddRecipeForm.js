@@ -88,11 +88,11 @@ class AddRecipeForm extends Component {
                             {this.state.recipeImage && (
                                 <>
                                     <div class="justify-content-md-center">
-                                        <image
+                                        <img
                                             src={this.state.recipeImage}
                                             style={{ width: 200 }}
-                                            alt="recipe image"
-                                        ></image>
+                                            alt="recipe img"
+                                        ></img>
                                     </div>
                                 </>
                             )}
