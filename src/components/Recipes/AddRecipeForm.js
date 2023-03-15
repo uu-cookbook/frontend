@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { Component } from "react";
 import { Formik } from "formik";
 
 class AddRecipeForm extends Component {
@@ -6,6 +6,7 @@ class AddRecipeForm extends Component {
         super(props);
         this.state = {
             recipeImage: null,
+            ingredients: [],
         };
     }
 
@@ -15,6 +16,26 @@ class AddRecipeForm extends Component {
         this.setState({
             recipeImage: URL.createObjectURL(e.target.files[0]),
         });
+    };
+
+    addIngredient = (e) => {
+        e.preventDefault();
+        this.setState({
+            ingredients: [
+                ...this.state.ingredients,
+                { ingredientName: "", ingredientAmount: "" },
+            ],
+        });
+    };
+
+    deleteIngredient = (e, ingredient) => {
+        console.log(ingredient, typeof ingredient);
+        e.preventDefault();
+        console.log("filter");
+        var tmp = this.state.ingredients.filter((_, i) => i !== ingredient);
+        console.log(tmp);
+        this.setState({ ingredients: tmp });
+        console.log(this.state.ingredients);
     };
 
     render() {
@@ -67,10 +88,11 @@ class AddRecipeForm extends Component {
                             {this.state.recipeImage && (
                                 <>
                                     <div class="justify-content-md-center">
-                                        <img
+                                        <image
                                             src={this.state.recipeImage}
                                             style={{ width: 200 }}
-                                        ></img>
+                                            alt="recipe image"
+                                        ></image>
                                     </div>
                                 </>
                             )}
@@ -125,6 +147,7 @@ class AddRecipeForm extends Component {
                                             accept="image/*"
                                             class="custom-file-input form-control"
                                             id="customFile"
+                                            alt="recipe image"
                                             onChange={this.setImage}
                                         ></input>
                                     </div>
@@ -137,7 +160,69 @@ class AddRecipeForm extends Component {
                                     >
                                         <strong>Recipe ingredients</strong>
                                     </label>
-                                    <textarea class="form-control"></textarea>
+                                    {this.state.ingredients.map((_, item) => (
+                                        <div
+                                            key={item}
+                                            class="input-group mb-3"
+                                        >
+                                            <span class="input-group-text">
+                                                {item}
+                                            </span>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                placeholder="ingredient name"
+                                                aria-label="ingredient name"
+                                                aria-describedby="basic-addon2"
+                                                onChange={(e) => {
+                                                    const tmp =
+                                                        this.state.ingredients;
+                                                    tmp[item].ingredientName =
+                                                        e.target.value;
+                                                    this.setState({
+                                                        ingredients: tmp,
+                                                    });
+                                                    console.log(
+                                                        this.state.ingredients
+                                                    );
+                                                }}
+                                                value={
+                                                    this.state.ingredients[item]
+                                                        .ingredientName
+                                                }
+                                            ></input>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                placeholder="ingredient amount"
+                                                aria-label="ingredient amount"
+                                                aria-describedby="basic-addon2"
+                                            ></input>
+                                            <button
+                                                class="btn btn-danger"
+                                                type="button"
+                                                id={item}
+                                                onClick={(e) =>
+                                                    this.deleteIngredient(
+                                                        e,
+                                                        item
+                                                    )
+                                                }
+                                            >
+                                                <i class="bi bi-x-circle"></i>
+                                            </button>
+                                        </div>
+                                    ))}
+                                    <div class="input-group">
+                                        <button
+                                            class="btn btn-success"
+                                            type="button"
+                                            onClick={this.addIngredient}
+                                        >
+                                            <i class="bi bi-plus-circle"></i>{" "}
+                                            Add ingredient
+                                        </button>
+                                    </div>
                                 </div>
                                 <br />
 
@@ -148,7 +233,7 @@ class AddRecipeForm extends Component {
                                     <textarea
                                         class="form-control"
                                         id="cookGuide"
-                                        rows="3"
+                                        rows="6"
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         value={values.cookGuide}

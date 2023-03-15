@@ -10,10 +10,13 @@ class AddRecipe extends Component {
             <>
                 <NavBar />
                 <div className="container">
-                    <div class="overflow-y-scroll">
+                    <div className="">
                         <AddRecipeForm />
                     </div>
                 </div>
+                <br />
+                <br />
+                <br />
                 <Footer />
             </>
         );

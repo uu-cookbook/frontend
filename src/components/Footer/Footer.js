@@ -4,7 +4,7 @@ class Footer extends React.Component {
     render() {
         return (
             <>
-                <div class="container-fluid fixed-bottom bg-dark">
+                <div class="container-fluid fixed-bottom bg-dark position-fixed">
                     <footer class=" text-center text-lg-start">
                         <div class="text-center text-white p-3">
                             {"© 2023 Copyright: "}
