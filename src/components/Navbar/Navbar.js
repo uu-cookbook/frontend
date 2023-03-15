@@ -46,43 +46,50 @@ class NavBar extends React.Component {
                                     </a>
                                 </li>
                                 {this.token && (
-                                    <li class="nav-item dropdown">
-                                        <a
-                                            class="nav-link dropdown-toggle"
-                                            href="/"
-                                            role="button"
-                                            data-bs-toggle="dropdown"
-                                            aria-expanded="false"
-                                        >
-                                            Recipes
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <a
-                                                    class="dropdown-item"
-                                                    href="/"
-                                                >
-                                                    My recipes
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    class="dropdown-item"
-                                                    href="/"
-                                                >
-                                                    My favorites
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    class="dropdown-item"
-                                                    href="/"
-                                                >
-                                                    My likes
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
+                                    <>
+                                        <li class="nav-item dropdown">
+                                            <a
+                                                class="nav-link dropdown-toggle"
+                                                href="/"
+                                                role="button"
+                                                data-bs-toggle="dropdown"
+                                                aria-expanded="false"
+                                            >
+                                                Recipes
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a
+                                                        class="dropdown-item"
+                                                        href="/"
+                                                    >
+                                                        My recipes
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a
+                                                        class="dropdown-item"
+                                                        href="/"
+                                                    >
+                                                        My favorites
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a
+                                                        class="dropdown-item"
+                                                        href="/"
+                                                    >
+                                                        My likes
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/add">
+                                                Add recipe
+                                            </a>
+                                        </li>
+                                    </>
                                 )}
                             </ul>
                         </div>
@@ -92,7 +99,7 @@ class NavBar extends React.Component {
                                     <img
                                         src={user_photo}
                                         class="nav-link dropdown-toggle"
-                                        href="/"
+                                        href="/account"
                                         id="navbarDarkDropdownMenuLink"
                                         role="button"
                                         data-bs-toggle="dropdown"
@@ -106,7 +113,10 @@ class NavBar extends React.Component {
                                         aria-labelledby="navbarDarkDropdownMenuLink"
                                     >
                                         <li>
-                                            <a class="dropdown-item" href="/">
+                                            <a
+                                                class="dropdown-item"
+                                                href="/account"
+                                            >
                                                 Account
                                             </a>
                                         </li>

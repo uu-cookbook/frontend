@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import NavBar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
-import Login from "../components/Login/Login";
+import LoginForm from "../components/Login/LoginForm";
 
 class LoginPage extends Component {
     render() {
@@ -14,7 +14,7 @@ class LoginPage extends Component {
                         <div class="row">
                             <div class="col-sm"></div>
                             <div class="col-sm">
-                                <Login />
+                                <LoginForm />
                             </div>
                             <div class="col-sm"></div>
                         </div>

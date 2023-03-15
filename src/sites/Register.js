@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import NavBar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
-import Register from "../components/Login/Register";
+import RegisterForm from "../components/Login/RegisterForm";
 
 class RegisterPage extends Component {
     render() {
@@ -14,7 +14,7 @@ class RegisterPage extends Component {
                         <div class="row">
                             <div class="col-sm"></div>
                             <div class="col-sm">
-                                <Register />
+                                <RegisterForm />
                             </div>
                             <div class="col-sm"></div>
                         </div>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Formik } from "formik";
 
-class Register extends Component {
+class RegisterForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -186,6 +186,17 @@ class Register extends Component {
                                         value={values.password}
                                     ></input>
                                 </div>
+                                {/*}
+                                TODO: Add password strength meter
+                                <div class="col-auto">
+                                    <span
+                                        id="passwordHelpInline"
+                                        class="form-text"
+                                    >
+                                        Must be 8-20 characters long.
+                                    </span>
+                                </div>
+                                */}
                                 {errors.password &&
                                     touched.password &&
                                     errors.password}
@@ -228,4 +239,4 @@ class Register extends Component {
     }
 }
 
-export default Register;
+export default RegisterForm;
