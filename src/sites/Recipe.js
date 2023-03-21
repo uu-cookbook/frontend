@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 
+import NavBar from "../components/Navbar/Navbar";
+import Footer from "../components/Footer/Footer";
+
 class Recipe extends Component {
     constructor(props) {
         super(props);
@@ -13,18 +16,28 @@ class Recipe extends Component {
 
     render() {
         return (
-            <div>
-                {console.log(this.props)}
-                {console.log(this.props.id)}
-                {this.props.id ? (
-                    <>
-                        <h1>recipe</h1>
-                        <h1>id: {this.props.id}</h1>
-                    </>
-                ) : (
-                    <h1>recipe not found</h1>
-                )}
-            </div>
+            <>
+                <NavBar />
+                <div>
+                    {console.log(this.props)}
+                    {console.log(this.props.id)}
+
+                    {this.props.id ? (
+                        <>
+                            <h1>recipe</h1>
+                            <h1>id: {this.props.id}</h1>
+                        </>
+                    ) : (
+                        <h1>recipe not found</h1>
+                    )}
+                    {this.props.token ? (
+                        <h1>token: {this.props.token}</h1>
+                    ) : (
+                        <h1>token not found</h1>
+                    )}
+                </div>
+                <Footer />
+            </>
         );
     }
 }

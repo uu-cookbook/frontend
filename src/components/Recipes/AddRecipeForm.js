@@ -215,6 +215,10 @@ class AddRecipeForm extends Component {
                                                 placeholder="ingredient amount"
                                                 aria-label="ingredient amount"
                                                 aria-describedby="basic-addon2"
+                                                value={
+                                                    this.state.ingredients[item]
+                                                        .ingredientAmount
+                                                }
                                             ></input>
                                             <button
                                                 class="btn btn-danger"
@@ -253,7 +257,24 @@ class AddRecipeForm extends Component {
                                             <span class="input-group-text">
                                                 {item}
                                             </span>
-                                            <textarea class="form-control"></textarea>
+                                            <textarea
+                                                class="form-control"
+                                                onChange={(e) => {
+                                                    const tmp =
+                                                        this.state.steps;
+                                                    tmp[item].step =
+                                                        e.target.value;
+                                                    this.setState({
+                                                        steps: tmp,
+                                                    });
+                                                    console.log(
+                                                        this.state.steps
+                                                    );
+                                                }}
+                                                value={
+                                                    this.state.steps[item].step
+                                                }
+                                            ></textarea>
                                             <button
                                                 class="btn btn-danger"
                                                 type="button"
