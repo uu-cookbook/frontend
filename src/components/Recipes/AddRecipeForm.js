@@ -7,6 +7,7 @@ class AddRecipeForm extends Component {
         this.state = {
             recipeImage: null,
             ingredients: [],
+            steps: [],
         };
     }
 
@@ -36,6 +37,23 @@ class AddRecipeForm extends Component {
         console.log(tmp);
         this.setState({ ingredients: tmp });
         console.log(this.state.ingredients);
+    };
+
+    addStep = (e) => {
+        e.preventDefault();
+        this.setState({
+            steps: [...this.state.steps, { step: "" }],
+        });
+    };
+
+    deleteStep = (e, step) => {
+        console.log(step, typeof step);
+        e.preventDefault();
+        console.log("filter");
+        var tmp = this.state.steps.filter((_, i) => i !== step);
+        console.log(tmp);
+        this.setState({ steps: tmp });
+        console.log(this.state.steps);
     };
 
     render() {
@@ -230,15 +248,34 @@ class AddRecipeForm extends Component {
                                     <label for="cookGuide" class="form-label">
                                         <strong>Cook guide</strong>
                                     </label>
-                                    <textarea
-                                        class="form-control"
-                                        id="cookGuide"
-                                        rows="6"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        value={values.cookGuide}
-                                        placeholder="describe how to cook your recipe"
-                                    ></textarea>
+                                    {this.state.steps.map((_, item) => (
+                                        <div key={item} class="input-group">
+                                            <span class="input-group-text">
+                                                {item}
+                                            </span>
+                                            <textarea class="form-control"></textarea>
+                                            <button
+                                                class="btn btn-danger"
+                                                type="button"
+                                                id={item}
+                                                onClick={(e) =>
+                                                    this.deleteStep(e, item)
+                                                }
+                                            >
+                                                <i class="bi bi-x-circle"></i>
+                                            </button>
+                                        </div>
+                                    ))}
+                                    <div class="input-group">
+                                        <button
+                                            class="btn btn-success"
+                                            type="button"
+                                            onClick={this.addStep}
+                                        >
+                                            <i class="bi bi-plus-circle"></i>{" "}
+                                            Add step
+                                        </button>
+                                    </div>
                                 </div>
                                 <br />
                                 <button

@@ -47,6 +47,7 @@ class LoginForm extends Component {
                                 console.log(data);
                                 if (data.success === true) {
                                     localStorage.setItem("token", data.token);
+                                    alert(data.token);
                                     console.log("Success:", data);
                                     setInterval(() => {
                                         window.location.href = "/";
