@@ -6,6 +6,7 @@ class AddRecipeForm extends Component {
         super(props);
         this.state = {
             recipeImage: null,
+            recipeImg: null,
             ingredients: [],
             steps: [],
         };
@@ -17,6 +18,7 @@ class AddRecipeForm extends Component {
         this.setState({
             recipeImage: URL.createObjectURL(e.target.files[0]),
         });
+        this.setState({ recipeImg: e.target.files[0] });
     };
 
     addIngredient = (e) => {
@@ -30,13 +32,9 @@ class AddRecipeForm extends Component {
     };
 
     deleteIngredient = (e, ingredient) => {
-        console.log(ingredient, typeof ingredient);
         e.preventDefault();
-        console.log("filter");
         var tmp = this.state.ingredients.filter((_, i) => i !== ingredient);
-        console.log(tmp);
         this.setState({ ingredients: tmp });
-        console.log(this.state.ingredients);
     };
 
     addStep = (e) => {
@@ -47,13 +45,9 @@ class AddRecipeForm extends Component {
     };
 
     deleteStep = (e, step) => {
-        console.log(step, typeof step);
         e.preventDefault();
-        console.log("filter");
         var tmp = this.state.steps.filter((_, i) => i !== step);
-        console.log(tmp);
         this.setState({ steps: tmp });
-        console.log(this.state.steps);
     };
 
     render() {
@@ -67,23 +61,27 @@ class AddRecipeForm extends Component {
                     initialValues={{ email: "", password: "" }}
                     validate={(values) => {
                         const errors = {};
-                        if (!values.recipeName) {
-                            errors.recipeName = "Required";
-                        }
+                        //if (!values.recipeName) {
+                        //    errors.recipeName = "Required";
+                        //}
                         return errors;
                     }}
                     onSubmit={(values, { setSubmitting }) => {
-                        setTimeout(() => {
-                            setSubmitting(false);
-                        }, 400);
+                        console.log("submit");
+                        var formData = new FormData();
+                        formData.append("username", "abc123");
+                        formData.append("avatar", "file");
+                        formData.append("image", this.state.recipeImg);
+                        console.log("sumbit: ", this.state.recipeImg);
+
                         fetch(
                             "https://api.uu.vojtechpetrasek.com/v3/add_recipe/",
                             {
                                 method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                },
-                                body: JSON.stringify(values),
+                                //headers: {
+                                //    "Content-Type": "multipart/form-data",
+                                //},
+                                body: formData,
                             }
                         )
                             .then((response) => response.json())
@@ -215,6 +213,18 @@ class AddRecipeForm extends Component {
                                                 placeholder="ingredient amount"
                                                 aria-label="ingredient amount"
                                                 aria-describedby="basic-addon2"
+                                                onChange={(e) => {
+                                                    const tmp =
+                                                        this.state.ingredients;
+                                                    tmp[item].ingredientAmount =
+                                                        e.target.value;
+                                                    this.setState({
+                                                        ingredients: tmp,
+                                                    });
+                                                    console.log(
+                                                        this.state.ingredients
+                                                    );
+                                                }}
                                                 value={
                                                     this.state.ingredients[item]
                                                         .ingredientAmount
@@ -299,12 +309,8 @@ class AddRecipeForm extends Component {
                                     </div>
                                 </div>
                                 <br />
-                                <button
-                                    type="submit"
-                                    disabled={isSubmitting}
-                                    class="btn btn-primary"
-                                >
-                                    Add recipe
+                                <button type="submit" class="btn btn-primary">
+                                    Submit
                                 </button>
                             </form>
                         </>

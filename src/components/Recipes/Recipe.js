@@ -10,7 +10,6 @@ class Recipe extends Component {
         return (
             <>
                 <div>
-                    <h1>Recipe</h1>
                     <div class="card" style={{ width: 400 }}>
                         <img
                             src={photo}
@@ -19,14 +18,15 @@ class Recipe extends Component {
                             alt=""
                         ></img>
                         <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
+                            <h5 class="card-title">{this.props.recipe.name}</h5>
                             <p class="card-text">
-                                Some quick example text to build on the card
-                                title and make up the bulk of the card's
-                                content.
+                                {this.props.recipe.description}
+                            </p>
+                            <p class="card-text">
+                                {this.props.recipe.ingredients}
                             </p>
                             <a href="/" class="btn btn-primary">
-                                Go somewhere
+                                Open recipe
                             </a>
                         </div>
                     </div>
